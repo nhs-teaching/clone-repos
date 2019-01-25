@@ -11,16 +11,16 @@ const { execSync } = require('child_process');
 const { getStudent, fetchRoster, writeStudentInfo } = require('./lookupUser.js');
 const clone = require('./clone.js');
 const mkdirp = require('mkdirp');
-const octokit = require('@octokit/rest')();
+const Octokit = require('@octokit/rest');
 const path = require('path');
 const Git = require('nodegit');
 
 /**
  * Authenticate using the access token from my account
  */
-octokit.authenticate({
-  type: 'token',
-  token: process.env.GITHUB_ACCESSTOKEN
+
+const octokit = new Octokit({
+  auth: `token ${process.env.GITHUB_ACCESSTOKEN}`
 });
 
 async function fetchPage(org, page) {
