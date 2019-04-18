@@ -100,7 +100,7 @@ async function fetchAll(org, project) {
     try {
       // Run all the diagnostics on their code
       process.stdout.write(`Compiling JAR file...\n`);
-      execSync('ant jar');
+      execSync('gradle jar');
     } catch (e) {
       /* handle error */
       process.stdout.write('Error creating JAR\n');
@@ -108,20 +108,12 @@ async function fetchAll(org, project) {
 
     try {
       process.stdout.write(`Running Checkstyle...\n`);
-      execSync('ant check > /dev/null 2>&1');
+      execSync('gradle check > /dev/null 2>&1');
     } catch (e) {
       /* handle error */
       process.stdout.write('Error Checking Style\n');
     }
     
-    try {
-      process.stdout.write(`Running Unit Tests...\n`);
-      execSync('ant test > /dev/null 2>&1');
-    } catch (e) {
-      /* handle error */
-      process.stdout.write('Error Running tests\n');
-    }
-
     process.stdout.write('DONE!\n\n');  
     // STEP 4 is in the compile-repots project...
   };  
